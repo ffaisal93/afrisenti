@@ -65,6 +65,7 @@ task_to_keys = {
     "sst2": ("sentence", None),
     "stsb": ("sentence1", "sentence2"),
     "wnli": ("sentence1", "sentence2"),
+    "afri": ("tweet", None),
 }
 
 logger = logging.getLogger(__name__)
@@ -273,7 +274,7 @@ def main():
     #
     # In distributed training, the load_dataset function guarantee that only one local process can concurrently
     # download the dataset.
-    if data_args.task_name is not None:
+    if data_args.task_name is not None and data_args.train_file is None:
         # Downloading and loading a dataset from the hub.
         raw_datasets = load_dataset(
             "glue",
@@ -281,7 +282,7 @@ def main():
             cache_dir=model_args.cache_dir,
             use_auth_token=True if model_args.use_auth_token else None,
         )
-    elif data_args.dataset_name is not None:
+    elif data_args.dataset_name is not None and data_args.train_file is None:
         # Downloading and loading a dataset from the hub.
         raw_datasets = load_dataset(
             data_args.dataset_name,
@@ -292,30 +293,49 @@ def main():
     else:
         # Loading a dataset from your local files.
         # CSV/JSON training and evaluation files are needed.
-        data_files = {"train": data_args.train_file, "validation": data_args.validation_file}
+        if os.path.isdir(data_args.train_file):
+            all_tr_file.append=[]
+            for f in os.listdir(data_args.train_file):
+                if str(f).endswith('.tsv'):
+                    all_tr_file.append(os.path.join(data_args.train_file,f))
+            all_db_file.append=[]
+            for f in os.listdir(data_args.train_file):
+                if str(f).endswith('.tsv'):
+                    all_db_file.append(os.path.join(data_args.validation_file,f))
+            data_files = {"train": all_tr_file, "validation": all_db_file}
+        else:
+            data_files = {"train": data_args.train_file, "validation": data_args.validation_file}
 
         # Get the test dataset: you can provide your own CSV/JSON test file (see below)
         # when you use `do_predict` without specifying a GLUE benchmark task.
-        if training_args.do_predict:
-            if data_args.test_file is not None:
-                train_extension = data_args.train_file.split(".")[-1]
-                test_extension = data_args.test_file.split(".")[-1]
-                assert (
-                    test_extension == train_extension
-                ), "`test_file` should have the same extension (csv or json) as `train_file`."
-                data_files["test"] = data_args.test_file
+        if training_args.do_predict or data_args.test_file is not None:
+            # train_extension = data_args.train_file.split(".")[-1]
+            # test_extension = data_args.test_file.split(".")[-1]
+            # assert (
+            #     test_extension == train_extension
+            # ), "`test_file` should have the same extension (csv or json) as `train_file`."
+            if os.path.isdir(data_args.test_file):
+                all_ts_file.append=[]
+                for f in os.listdir(data_args.test_file):
+                    if str(f).endswith('.tsv'):
+                        all_ts_file.append(os.path.join(data_args.test_file,f))
+
+                data_files["test"] = all_ts_file
             else:
-                raise ValueError("Need either a GLUE task or a test file for `do_predict`.")
+                data_files["test"] = data_args.test_file
+        else:
+            raise ValueError("Need either a GLUE task or a test file for `do_predict`.")
 
         for key in data_files.keys():
             logger.info(f"load a local file for {key}: {data_files[key]}")
 
-        if data_args.train_file.endswith(".csv"):
+        if data_args.train_file.endswith(".csv") or data_args.train_file.endswith(".tsv"):
             # Loading a dataset from local csv files
             raw_datasets = load_dataset(
                 "csv",
                 data_files=data_files,
                 cache_dir=model_args.cache_dir,
+                delimiter='\t',
                 use_auth_token=True if model_args.use_auth_token else None,
             )
         else:
@@ -330,7 +350,7 @@ def main():
     # https://huggingface.co/docs/datasets/loading_datasets.html.
 
     # Labels
-    if data_args.task_name is not None:
+    if data_args.task_name is not None and data_args.train_file is None:
         is_regression = data_args.task_name == "stsb"
         if not is_regression:
             label_list = raw_datasets["train"].features["label"].names
@@ -459,7 +479,7 @@ def main():
     label_to_id = None
     if (
         model.config.label2id != PretrainedConfig(num_labels=num_labels).label2id
-        and data_args.task_name is not None
+        and data_args.task_name is not None and data_args.train_file is None
         and not is_regression
     ):
         # Some have all caps in their config, some don't.
@@ -472,9 +492,8 @@ def main():
                 f"model labels: {list(sorted(label_name_to_id.keys()))}, dataset labels: {list(sorted(label_list))}."
                 "\nIgnoring the model labels as a result.",
             )
-    elif data_args.task_name is None and not is_regression:
+    elif data_args.task_name is not None and not is_regression and data_args.train_file is not None:
         label_to_id = {v: i for i, v in enumerate(label_list)}
-
     if label_to_id is not None:
         model.config.label2id = label_to_id
         model.config.id2label = {id: label for label, id in config.label2id.items()}
@@ -539,17 +558,24 @@ def main():
 
     # Get the metric function
     if data_args.task_name is not None:
-        metric = load_metric("glue", data_args.task_name)
-    else:
-        metric = load_metric("accuracy")
+        # metric = load_metric("glue", "qqp",average='macro')
+        # print(metric)
+    # else:
+        acc_metric = load_metric("accuracy")
+        f1_metric = load_metric("f1")
+        recall_metric = load_metric("recall")
 
     # You can define your custom compute_metrics function. It takes an `EvalPrediction` object (a namedtuple with a
     # predictions and label_ids field) and has to return a dictionary string to float.
-    def compute_metrics(p: EvalPrediction):
+    def compute_metrics(p):
         preds = p.predictions[0] if isinstance(p.predictions, tuple) else p.predictions
         preds = np.squeeze(preds) if is_regression else np.argmax(preds, axis=1)
         if data_args.task_name is not None:
-            result = metric.compute(predictions=preds, references=p.label_ids)
+            # result = metric.compute(predictions=preds, references=p.label_ids)
+            result = {}
+            result.update(acc_metric.compute(predictions=preds, references = p.label_ids))
+            result.update(f1_metric.compute(predictions=preds, references = p.label_ids, average="macro"))
+            result.update(recall_metric.compute(predictions=preds, references = p.label_ids, average="macro"))
             if len(result) > 1:
                 result["combined_score"] = np.mean(list(result.values())).item()
             return result
@@ -639,8 +665,8 @@ def main():
 
         for predict_dataset, task in zip(predict_datasets, tasks):
             # Removing the `label` columns because it contains -1 and Trainer won't like that.
-            predict_dataset = predict_dataset.remove_columns("label")
-            predictions = trainer.predict(predict_dataset, metric_key_prefix="predict").predictions
+            # predict_dataset = predict_dataset.remove_columns("label")
+            predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
             predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
 
             output_predict_file = os.path.join(training_args.output_dir, f"predict_results_{task}.txt")
@@ -654,6 +680,9 @@ def main():
                         else:
                             item = label_list[item]
                             writer.write(f"{index}\t{item}\n")
+            trainer.log_metrics("predict", metrics)
+            trainer.save_metrics("predict", metrics)
+
 
     kwargs = {"finetuned_from": model_args.model_name_or_path, "tasks": "text-classification"}
     if data_args.task_name is not None:
