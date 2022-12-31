@@ -37,6 +37,7 @@ from transformers import (
     AutoTokenizer,
     DataCollatorWithPadding,
     EvalPrediction,
+    AutoModelForSequenceClassification,
     HfArgumentParser,
     MultiLingAdapterArguments,
     PretrainedConfig,
@@ -389,7 +390,7 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
     # We use the AutoAdapterModel class here for better adapter support.
-    model = AutoAdapterModel.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
@@ -398,11 +399,12 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
         ignore_mismatched_sizes=model_args.ignore_mismatched_sizes,
     )
-    model.add_classification_head(
-        data_args.task_name or "glue",
-        num_labels=num_labels,
-        id2label={i: v for i, v in enumerate(label_list)} if num_labels > 0 else None,
-    )
+    print(num_labels)
+    # model.add_classification_head(
+    #     data_args.task_name or "glue",
+    #     num_labels=num_labels,
+    #     id2label={i: v for i, v in enumerate(label_list)} if num_labels > 0 else None,
+    # )
 
     # Setup adapters
     if adapter_args.train_adapter:
@@ -666,6 +668,9 @@ def main():
         for predict_dataset, task in zip(predict_datasets, tasks):
             # Removing the `label` columns because it contains -1 and Trainer won't like that.
             # predict_dataset = predict_dataset.remove_columns("label")
+            print(predict_dataset[0])
+            p =trainer.predict(predict_dataset, metric_key_prefix="predict")
+            print(p)
             predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
             predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
 
