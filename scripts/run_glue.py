@@ -202,6 +202,10 @@ class ModelArguments:
             )
         },
     )
+    is_adapter: bool = field(
+        default=False,
+        metadata={"help": "Is there adapter to load."},
+    )
     ignore_mismatched_sizes: bool = field(
         default=False,
         metadata={"help": "Will enable to load a pretrained model whose head dimensions are different."},
@@ -275,6 +279,8 @@ def main():
     #
     # In distributed training, the load_dataset function guarantee that only one local process can concurrently
     # download the dataset.
+    language = adapter_args.language
+
     if data_args.task_name is not None and data_args.train_file is None:
         # Downloading and loading a dataset from the hub.
         raw_datasets = load_dataset(
@@ -657,6 +663,44 @@ def main():
 
     if training_args.do_predict:
         logger.info("*** Predict ***")
+
+        logger.info("Loading best model for predictions.")
+        # if adapter_args.train_adapter:
+        task_name=data_args.task_name
+        if training_args.do_train==False:
+            if model_args.is_adapter:
+                if language:
+                    lang_adapter_config = AdapterConfig.load(
+                        config="pfeiffer", non_linearity="gelu", reduction_factor=2
+                    )
+                    model.load_adapter(
+                        os.path.join(training_args.output_dir, "best_model", language)
+                        if training_args.do_train
+                        else adapter_args.load_lang_adapter,
+                        config=lang_adapter_config,
+                        load_as=language,
+                    )
+                task_adapter_config = AdapterConfig.load(
+                    config="pfeiffer", non_linearity="gelu", reduction_factor=16
+                )
+                model.load_adapter(
+                    os.path.join(training_args.output_dir,task_name),
+                    config=task_adapter_config,
+                    load_as=task_name
+                )
+                if language:
+                    model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
+                else:
+                    model.set_active_adapters(task_name)
+            else:
+                model = AutoModelForSequenceClassification.from_pretrained(
+                    os.path.join(training_args.output_dir),
+                    from_tf=bool(".ckpt" in model_args.model_name_or_path),
+                    config=config,
+                    cache_dir=model_args.cache_dir,
+                )
+            trainer.model = model.to(training_args.device)
+        # model.to(training_args.device)
 
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         tasks = [data_args.task_name]
