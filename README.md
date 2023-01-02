@@ -51,6 +51,5 @@ python scripts/run_glue.py \
   --num_train_epochs 10.0 \
   --output_dir tmp/$TASK_NAME \
   --overwrite_output_dir \
-  --max_steps 20 \
   --cache_dir /scratch/ffaisal/hug_cache/datasets/$TASK_NAME
 ```
