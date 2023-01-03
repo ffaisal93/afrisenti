@@ -12,6 +12,9 @@ chmod +x install.sh
 
 # run sample training and prediction
 ```
+source vnv/vnv-adp-l/bin/activate
+```
+```
 export TASK_NAME=afri
 
 python scripts/run_glue.py \
@@ -30,6 +33,9 @@ python scripts/run_glue.py \
   --overwrite_output_dir \
   --train_adapter \
   --adapter_config pfeiffer
+```
+```
+deactivate
 ```
 
 
@@ -52,4 +58,38 @@ python scripts/run_glue.py \
   --output_dir tmp/$TASK_NAME \
   --overwrite_output_dir \
   --cache_dir /scratch/ffaisal/hug_cache/datasets/$TASK_NAME
+```
+
+
+# Joint adapter training
+
+- install
+```
+./install.sh --task install_joint
+```
+
+- train
+
+```
+source vnv/vnv-joint/bin/activate
+
+python scripts/run_mlm_with_region.py \
+  --model_name_or_path  bert-base-multilingual-uncased \
+  --train_files mlm_data \
+  --lang_config meta_files/lang_meta.json \
+  --lang_family afrisenti \
+  --do_train \
+  --learning_rate 2e-5 \
+  --num_train_epochs 3 \
+  --output_dir tmp/mlm \
+  --train_adapter \
+  --cache_dir /scratch/ffaisal/hug_cache/mlm \
+  --adapter_config "pfeiffer+inv" \
+  --max_seq_length 128 \
+  --max_steps 10 \
+  --save_steps 5000 \
+  --per_device_train_batch_size 12 \
+  --overwrite_output_dir
+
+deactivate
 ```

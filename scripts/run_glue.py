@@ -700,7 +700,7 @@ def main():
                     cache_dir=model_args.cache_dir,
                 )
             trainer.model = model.to(training_args.device)
-        # model.to(training_args.device)
+            # model.to(training_args.device)
 
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         tasks = [data_args.task_name]
