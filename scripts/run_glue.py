@@ -37,6 +37,7 @@ from transformers import (
     AutoTokenizer,
     DataCollatorWithPadding,
     EvalPrediction,
+    AutoModelForSequenceClassification,
     HfArgumentParser,
     MultiLingAdapterArguments,
     PretrainedConfig,
@@ -201,6 +202,10 @@ class ModelArguments:
             )
         },
     )
+    is_adapter: bool = field(
+        default=False,
+        metadata={"help": "Is there adapter to load."},
+    )
     ignore_mismatched_sizes: bool = field(
         default=False,
         metadata={"help": "Will enable to load a pretrained model whose head dimensions are different."},
@@ -274,6 +279,8 @@ def main():
     #
     # In distributed training, the load_dataset function guarantee that only one local process can concurrently
     # download the dataset.
+    language = adapter_args.language
+
     if data_args.task_name is not None and data_args.train_file is None:
         # Downloading and loading a dataset from the hub.
         raw_datasets = load_dataset(
@@ -389,7 +396,7 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
     # We use the AutoAdapterModel class here for better adapter support.
-    model = AutoAdapterModel.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
@@ -398,11 +405,12 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
         ignore_mismatched_sizes=model_args.ignore_mismatched_sizes,
     )
-    model.add_classification_head(
-        data_args.task_name or "glue",
-        num_labels=num_labels,
-        id2label={i: v for i, v in enumerate(label_list)} if num_labels > 0 else None,
-    )
+    print(num_labels)
+    # model.add_classification_head(
+    #     data_args.task_name or "glue",
+    #     num_labels=num_labels,
+    #     id2label={i: v for i, v in enumerate(label_list)} if num_labels > 0 else None,
+    # )
 
     # Setup adapters
     if adapter_args.train_adapter:
@@ -656,6 +664,44 @@ def main():
     if training_args.do_predict:
         logger.info("*** Predict ***")
 
+        logger.info("Loading best model for predictions.")
+        # if adapter_args.train_adapter:
+        task_name=data_args.task_name
+        if training_args.do_train==False:
+            if model_args.is_adapter:
+                if language:
+                    lang_adapter_config = AdapterConfig.load(
+                        config="pfeiffer", non_linearity="gelu", reduction_factor=2
+                    )
+                    model.load_adapter(
+                        os.path.join(training_args.output_dir, "best_model", language)
+                        if training_args.do_train
+                        else adapter_args.load_lang_adapter,
+                        config=lang_adapter_config,
+                        load_as=language,
+                    )
+                task_adapter_config = AdapterConfig.load(
+                    config="pfeiffer", non_linearity="gelu", reduction_factor=16
+                )
+                model.load_adapter(
+                    os.path.join(training_args.output_dir,task_name),
+                    config=task_adapter_config,
+                    load_as=task_name
+                )
+                if language:
+                    model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
+                else:
+                    model.set_active_adapters(task_name)
+            else:
+                model = AutoModelForSequenceClassification.from_pretrained(
+                    os.path.join(training_args.output_dir),
+                    from_tf=bool(".ckpt" in model_args.model_name_or_path),
+                    config=config,
+                    cache_dir=model_args.cache_dir,
+                )
+            trainer.model = model.to(training_args.device)
+            # model.to(training_args.device)
+
         # Loop to handle MNLI double evaluation (matched, mis-matched)
         tasks = [data_args.task_name]
         predict_datasets = [predict_dataset]
@@ -666,6 +712,9 @@ def main():
         for predict_dataset, task in zip(predict_datasets, tasks):
             # Removing the `label` columns because it contains -1 and Trainer won't like that.
             # predict_dataset = predict_dataset.remove_columns("label")
+            print(predict_dataset[0])
+            p =trainer.predict(predict_dataset, metric_key_prefix="predict")
+            print(p)
             predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
             predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
 

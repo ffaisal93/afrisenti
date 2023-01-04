@@ -1,0 +1,94 @@
+{
+    "tupian": {
+        "gn": "tupi_guarani",
+        "gnw": "tupi_guarani",
+        "gub": "tupi_guarani",
+        "gun": "tupi_guarani",
+        "myu": "munduruku",
+        "urb": "tupi_guarani"
+    },
+    "uto_aztecan": {
+        "crn": "corachol",
+        "hch": "corachol",
+        "mfy": "yaqui",
+        "nah": "aztecan",
+        "ntp": "tepiman",
+        "ood": "tepiman",
+        "stp": "tepiman",
+        "tar": "tarahumaran",
+        "yaq": "yaqui"
+    },
+    "germanic": {
+        "af":"west",
+        "en_1m":"west",
+        "fao_300k":"north",
+        "gotica":"west",
+        "is_1m":"north",
+        "sv_1m":"north",
+        "no_1m":"north",
+        "da_1m":"north",
+        "de_1m":"west",
+        "nl_1m":"west",
+        "low_saxon":"west",
+        "swiss-german_100k":"west"},
+
+     "uralic": {"et_1m": "finnic",
+         "fi_1m": "finnic",
+         "hu_1m": "hungarian",
+         "koi_10k": "permic",
+         "kpv_13k": "permic",
+         "krl_5k": "finnic",
+         "mdf_5k": "mordvinic",
+         "myv_29k": "mordvinic",
+         "olo_19k": "finnic",
+         "sme_10k": "sami",
+        "sms_3k": "sami"},
+
+    "uralic_demo":{
+        "sme": "finnic"
+    },
+    "random":{
+        "baq": "r2",
+        "bul": "r1",
+        "fao": "r3",
+        "gle":"r1",
+        "heb":"r3",
+        "hin":"r3",
+        "kpv":"r2",
+        "tel":"r2",
+        "urb":"r1"
+    },
+    "afrisenti":{
+        "am": "sematic",
+        "dz": "sematic",
+        "ha": "chadic",
+        "ig":"niger",
+        "kr":"miger",
+        "ma":"sematic",
+        "pcm":"creole",
+        "pt":"romance",
+        "sw":"niger",
+        "ts":"niger",
+        "twi":"niger",
+        "yo":"niger"
+    },
+    "afrisenti-iso3":{
+        "amh": "south-sematic",
+        "dza": "central-sematic",
+        "hau": "west-chadic",
+        "ibo":"niger-congo-volta-niger",
+        "kin":"niger-congo-northeast-bantu",
+        "mar":"central sematic",
+        "pcm":"creole",
+        "swa":"niger-congo-northeast-bantu",
+        "tso":"niger-congo-south-bantu",
+        "twi":"niger-congo-centra-tano",
+        "yor":"niger-congo-volta-niger"
+    },
+    "pt":{
+
+        "ptm":"romance-latin"
+    }
+
+
+}
