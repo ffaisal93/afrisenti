@@ -2,26 +2,35 @@ import glob
 import os
 import random
 import re
-import emoji
-seed = 42
+# import emoji
 
 def clean_tweet(tweet):
     # remove the @user from the tweet
     tweet = tweet.replace("@user", "")
+
     # remove the urls from the tweet
     tweet = re.sub(r"http\S+", "", tweet)
+
     # remove the hashtags from the tweet
     # tweet = re.sub(r"#\S+", "", tweet)
-    # remove the punctuations from the tweet
-    # tweet = re.sub(r"[^\w\s]", "", tweet)
+
+    # remove the multiple consecutive punctuations from the tweet
+    tweet = re.sub(r"([#@$%^&*()-+_!?.~';:,]){2,}", r"\1", tweet)
+
     # remove the numbers from the tweet
     # tweet = re.sub(r"\d+", "", tweet)
+
     # remove the extra spaces from the tweet
     tweet = re.sub(r"\s+", " ", tweet)
+
     # remove the leading and trailing spaces from the tweet
     tweet = tweet.strip()
-    # change emojis from the tweet to <text> (e.g. :D to <smile>)
-    # tweet = emoji.demojize(tweet)
+
+    # change emojis from the tweet to text
+    # tweet = emoji.demojize(tweet) 
+
+    # remove the concurrences of the same character (e.g. "hellooooo" to "helloo")
+    tweet = re.sub(r"(\w)\1{2,}", r"\1\1", tweet)
 
     return tweet
 
@@ -87,10 +96,10 @@ def process_data(data_folder, processed_data_folder):
                 f.write("id\ttweet\n")
             f.write("".join(processed_lines))
 
-        print("Processing file: ", os.path.basename(file))
+        #print("Processing file: ", os.path.basename(file))
         print(f"{os.path.basename(file)} has {total_tweets} total tweets")
-        print("Clean tweets: ", clean_tweets)
-        print("*" * 50)
+        # print("Clean tweets: ", clean_tweets)
+        # print("*" * 50)
 
 def split_train_data_with_labels(train_file_folder, output_split_folder):
     for file in glob.glob(os.path.join(train_file_folder, "*.tsv")):
@@ -106,71 +115,50 @@ def split_train_data_with_labels(train_file_folder, output_split_folder):
             train_lines = lines[:int(len(lines) * 0.8)]
             dev_lines = lines[int(len(lines) * 0.8):]
 
-            # save the train and dev data in the with_labels folder
+            # save the train and test data in the with_labels folder
             # get the file name without the extension
             file_name = os.path.basename(file).split(".")[0].split("_")[0]
-            with open(os.path.join(output_split_folder,"train", f"{file_name}_train.tsv"), "w", encoding="utf-8") as f:
+            train_file_folder = os.path.join(output_split_folder, "train")
+            dev_file_folder = os.path.join(output_split_folder, "dev")
+
+            if not os.path.exists(train_file_folder):
+                os.makedirs(train_file_folder)
+            if not os.path.exists(dev_file_folder):
+                os.makedirs(dev_file_folder)
+
+            with open(os.path.join(train_file_folder, f"{file_name}_train.tsv"), "w", encoding="utf-8") as f:
                 f.write("tweet\tlabel\n")
                 f.write("".join(train_lines))
                 print("Processed train file: ", os.path.basename(file))
                 print("Train data size: ", len(train_lines))
 
-            with open(os.path.join(output_split_folder,"dev", f"{file_name}_dev.tsv"), "w", encoding="utf-8") as f:
+            with open(os.path.join(dev_file_folder, f"{file_name}_test.tsv"), "w", encoding="utf-8") as f:
                 f.write("tweet\tlabel\n")
                 f.write("".join(dev_lines))
-                print("Processed dev file: ", os.path.basename(file))
+                print("Processed test file: ", os.path.basename(file))
                 print("Test data size: ", len(dev_lines))
                 print("*" * 50)
 
-def lang_classify_data(data_folder, output_folder):
-
-    print("Processing data for language classification task ...")
-    print("input data folder: ", data_folder)
-
-    processed_lines = []
-
-    for file in glob.glob(os.path.join(data_folder, "*.tsv")):
-        with open(file, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            # skip first line
-            lines = lines[1:]
-
-            # get the file name without the extension
-            new_label = os.path.basename(file).split(".")[0].split("_")[0]
-
-            for line in lines:
-                try:
-                    tweet, label = line.split("\t")
-                except:
-                    print("Error in line: ", line)
-                    print("File: ", file)
-                    continue
-
-                processed_lines.append(f"{tweet}\t{new_label}\n")
-
-    # shuffle the lines
-    random.shuffle(processed_lines)
-
-    output_file_name = os.path.join(output_folder, os.path.basename(data_folder)+".tsv")
-    # save the processed data in the lang_classification folder
-    with open(output_file_name, "w", encoding="utf-8") as f:
-        f.write("tweet\tlabel\n")
-        f.write("".join(processed_lines))
-
-    print("Processed data for language classification task ...")
-    print("Data size: ", len(processed_lines))
-    print("*" * 50)
-
 def main():
-    data_folder = "../SubtaskC/"
-    for folder in ["train", "dev"]:
-        process_data(os.path.join(data_folder, folder), os.path.join(data_folder, "processed_data", folder))
 
-    # split the train data into train and dev
-    split_train_data_with_labels(os.path.join(data_folder, "processed_data", "train"), os.path.join(data_folder, "processed", "with_labels"))
+    data_folder = "/scratch/rxie/afrisenti/SubtaskA"
 
     for folder in ["train", "dev"]:
-        lang_classify_data(f"processed_data\with_labels\{folder}", "processed_data\with_labels\lang_classification")
+
+        input_folder = os.path.join(data_folder, folder)
+        output_folder = os.path.join(data_folder, "fully_processed", folder)
+
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        process_data(input_folder, output_folder)
+
+    #split the train data into train and dev
+    split_labeled_folder = os.path.join(data_folder, "fully_processed","with_labels")
+    if not os.path.exists(split_labeled_folder):
+        os.makedirs(split_labeled_folder)
+    split_train_data_with_labels(os.path.join(data_folder, "fully_processed", "train"), split_labeled_folder)
+
 
 if __name__ == '__main__':
     main()
