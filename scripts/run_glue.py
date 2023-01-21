@@ -206,6 +206,30 @@ class ModelArguments:
         default=False,
         metadata={"help": "Is there adapter to load."},
     )
+    is_joint: bool = field(
+        default=False,
+        metadata={"help": "Is there adapter to load."},
+    )
+    do_predict_joint: bool = field(
+        default=False,
+        metadata={"help": "Are we using joint adapters for inference."},
+    )
+
+    family_path: str = field(
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+    )
+    task_path: str = field(
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+    )
+    lang_config: Optional[str] = field(
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+    )
+    lang_family: Optional[str] = field(
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+    )
+    lang_name: Optional[str] = field(
+        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+    )
     ignore_mismatched_sizes: bool = field(
         default=False,
         metadata={"help": "Will enable to load a pretrained model whose head dimensions are different."},
@@ -665,6 +689,100 @@ def main():
         logger.info("*** Predict ***")
 
         logger.info("Loading best model for predictions.")
+
+        def load_tadapters(tad, tname):
+            task_adapter_config = AdapterConfig.load(
+                            config="pfeiffer", non_linearity="gelu", reduction_factor=16
+                        )
+            task_adapter_name = model.load_adapter(
+                tad,
+                config=task_adapter_config,
+                load_as=tname,
+            )
+            return task_adapter_name
+
+
+        def load_ladapters(lad, lang):
+            lang_adapter_config = AdapterConfig.load(
+                            os.path.join(lad,'adapter_config.json'),
+                            non_linearity="gelu",
+                            leave_out=leave_out
+                        )
+
+            lang_adapter_name = model.load_adapter(
+                lad,
+                config=lang_adapter_config,
+                load_as=lang,
+                leave_out=leave_out
+            )
+            return lang_adapter_name
+        
+
+
+        def do_prediction(predict_dataset):
+            # Loop to handle MNLI double evaluation (matched, mis-matched)
+            tasks = [data_args.task_name]
+            predict_datasets = [predict_dataset]
+            if data_args.task_name == "mnli":
+                tasks.append("mnli-mm")
+                predict_datasets.append(raw_datasets["test_mismatched"])
+
+            for predict_dataset, task in zip(predict_datasets, tasks):
+                # Removing the `label` columns because it contains -1 and Trainer won't like that.
+                # predict_dataset = predict_dataset.remove_columns("label")
+                print(predict_dataset[0])
+                p =trainer.predict(predict_dataset, metric_key_prefix="predict")
+                print(p)
+                predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
+                predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
+
+                output_predict_file = os.path.join(training_args.output_dir, f"predict_results_{task}.txt")
+                if trainer.is_world_process_zero():
+                    with open(output_predict_file, "w") as writer:
+                        logger.info(f"***** Predict results {task} *****")
+                        writer.write("index\tprediction\n")
+                        for index, item in enumerate(predictions):
+                            if is_regression:
+                                writer.write(f"{index}\t{item:3.3f}\n")
+                            else:
+                                item = label_list[item]
+                                writer.write(f"{index}\t{item}\n")
+                trainer.log_metrics("predict", metrics)
+                trainer.save_metrics("predict", metrics)
+
+
+        def  do_prediction_joint(text,adapter_list):
+            logger.info('\n\n\n{}'.format(text))
+            print(predict_dataset[0])
+            model.set_active_adapters(adapter_list)
+            # else:
+            #     model.set_active_adapters(ac.Stack(adapter_list))
+            trainer.model = model.to(training_args.device)
+            predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
+            predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
+
+            predict_file = os.path.join(training_args.output_dir, f"predict_results_{lang}.txt")
+            if trainer.is_world_process_zero():
+                with open(predict_file, "w") as writer_pred:
+                    logger.info(f"***** Predict results {lang} *****")
+                    writer_pred.write("index\tprediction\n")
+                    for index, item in enumerate(predictions):
+                        if is_regression:
+                            writer_pred.write(f"{index}\t{item:3.3f}\n")
+                        else:
+                            item = label_list[item]
+                            writer_pred.write(f"{index}\t{item}\n")
+
+            logger.info("%s,%s,%s,%s,%s\n" % (text,adapter_list[-1], 
+                lang, 
+                metrics['predict_accuracy'], 
+                metrics['predict_f1']))
+            writer.write("%s,%s,%s,%s,%s\n" % (text,adapter_list[-1],
+                lang, 
+                metrics['predict_accuracy'], 
+                metrics['predict_f1']))
+            model.set_active_adapters(None)
+
         # if adapter_args.train_adapter:
         task_name=data_args.task_name
         if training_args.do_train==False:
@@ -692,6 +810,51 @@ def main():
                     model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
                 else:
                     model.set_active_adapters(task_name)
+                trainer.model = model.to(training_args.device)
+                do_prediction(predict_dataset)
+
+            elif model_args.is_joint:
+                import json
+                leave_out = []
+                lang=model_args.lang_name
+                with open(model_args.lang_config) as json_file:
+                    ad_data = json.load(json_file)
+                group_name = ad_data[model_args.lang_family][model_args.lang_name]
+                print(model_args.family_path)
+
+                task_j_path = model_args.task_path
+                logger.info('task_path:{}'.format(task_j_path))
+                task_adapter_name=load_tadapters(task_j_path, 'task_j')
+
+                lang_j_path = os.path.join(model_args.family_path,model_args.lang_name)
+                logger.info('lang_path:{}'.format(lang_j_path))
+                lang_adapter_name=load_ladapters(lang_j_path, 'lang_j')
+
+                group_j_path = os.path.join(model_args.family_path,group_name)
+                logger.info('group_path:{}'.format(group_j_path))
+                group_adapter_name=load_ladapters(group_j_path, 'group_j')
+
+                family_j_path = os.path.join(model_args.family_path,'family')
+                logger.info('family_path:{}'.format(family_j_path))
+                family_adapter_name=load_ladapters(family_j_path, 'family_j')
+
+
+                output_test_results_file = os.path.join(training_args.output_dir, "joint_test_results.txt")
+                if trainer.is_world_process_zero():
+                    writer = open(output_test_results_file, "w")
+
+                do_prediction_joint('[task]',[task_adapter_name])
+                # do_prediction_joint('[task+lang->joint]',[lang_adapter_name, task_adapter_name])
+                # do_prediction_joint('[task+lang+family->joint]',[family_adapter_name,lang_adapter_name, task_adapter_name])
+                # do_prediction_joint('[task+lang+region+family->joint]',[family_adapter_name,group_adapter_name,
+                #                                lang_adapter_name, task_adapter_name])
+                # model.delete_adapter(task_adapter_name)
+                # model.delete_adapter(lang_adapter_name)
+                # model.delete_adapter(group_adapter_name)
+                # model.delete_adapter(family_adapter_name)
+
+
+
             else:
                 model = AutoModelForSequenceClassification.from_pretrained(
                     os.path.join(training_args.output_dir),
@@ -699,38 +862,11 @@ def main():
                     config=config,
                     cache_dir=model_args.cache_dir,
                 )
-            trainer.model = model.to(training_args.device)
+                trainer.model = model.to(training_args.device)
+                print(predict_dataset)
+                do_prediction(predict_dataset)
             # model.to(training_args.device)
 
-        # Loop to handle MNLI double evaluation (matched, mis-matched)
-        tasks = [data_args.task_name]
-        predict_datasets = [predict_dataset]
-        if data_args.task_name == "mnli":
-            tasks.append("mnli-mm")
-            predict_datasets.append(raw_datasets["test_mismatched"])
-
-        for predict_dataset, task in zip(predict_datasets, tasks):
-            # Removing the `label` columns because it contains -1 and Trainer won't like that.
-            # predict_dataset = predict_dataset.remove_columns("label")
-            print(predict_dataset[0])
-            p =trainer.predict(predict_dataset, metric_key_prefix="predict")
-            print(p)
-            predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
-            predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
-
-            output_predict_file = os.path.join(training_args.output_dir, f"predict_results_{task}.txt")
-            if trainer.is_world_process_zero():
-                with open(output_predict_file, "w") as writer:
-                    logger.info(f"***** Predict results {task} *****")
-                    writer.write("index\tprediction\n")
-                    for index, item in enumerate(predictions):
-                        if is_regression:
-                            writer.write(f"{index}\t{item:3.3f}\n")
-                        else:
-                            item = label_list[item]
-                            writer.write(f"{index}\t{item}\n")
-            trainer.log_metrics("predict", metrics)
-            trainer.save_metrics("predict", metrics)
 
 
     kwargs = {"finetuned_from": model_args.model_name_or_path, "tasks": "text-classification"}
