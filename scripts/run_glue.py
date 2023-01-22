@@ -694,7 +694,7 @@ def main():
             task_adapter_config = AdapterConfig.load(
                             config="pfeiffer", non_linearity="gelu", reduction_factor=16
                         )
-            task_adapter_name = model.load_adapter(
+            task_adapter_name = trainer.model.load_adapter(
                 tad,
                 config=task_adapter_config,
                 load_as=tname,
@@ -709,7 +709,7 @@ def main():
                             leave_out=leave_out
                         )
 
-            lang_adapter_name = model.load_adapter(
+            lang_adapter_name = trainer.model.load_adapter(
                 lad,
                 config=lang_adapter_config,
                 load_as=lang,
@@ -754,10 +754,11 @@ def main():
         def  do_prediction_joint(text,adapter_list):
             logger.info('\n\n\n{}'.format(text))
             print(predict_dataset[0])
-            model.set_active_adapters(adapter_list)
+            trainer.model.set_active_adapters(adapter_list)
             # else:
             #     model.set_active_adapters(ac.Stack(adapter_list))
-            trainer.model = model.to(training_args.device)
+            trainer.model = trainer.model.to(training_args.device)
+            print(trainer.model)
             predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
             predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
 
@@ -781,7 +782,7 @@ def main():
                 lang, 
                 metrics['predict_accuracy'], 
                 metrics['predict_f1']))
-            model.set_active_adapters(None)
+            trainer.model.set_active_adapters(None)
 
         # if adapter_args.train_adapter:
         task_name=data_args.task_name
@@ -844,14 +845,14 @@ def main():
                     writer = open(output_test_results_file, "w")
 
                 do_prediction_joint('[task]',[task_adapter_name])
-                # do_prediction_joint('[task+lang->joint]',[lang_adapter_name, task_adapter_name])
-                # do_prediction_joint('[task+lang+family->joint]',[family_adapter_name,lang_adapter_name, task_adapter_name])
-                # do_prediction_joint('[task+lang+region+family->joint]',[family_adapter_name,group_adapter_name,
-                #                                lang_adapter_name, task_adapter_name])
-                # model.delete_adapter(task_adapter_name)
-                # model.delete_adapter(lang_adapter_name)
-                # model.delete_adapter(group_adapter_name)
-                # model.delete_adapter(family_adapter_name)
+                do_prediction_joint('[task+lang->joint]',[lang_adapter_name, task_adapter_name])
+                do_prediction_joint('[task+lang+family->joint]',[family_adapter_name,lang_adapter_name, task_adapter_name])
+                do_prediction_joint('[task+lang+region+family->joint]',[family_adapter_name,group_adapter_name,
+                                               lang_adapter_name, task_adapter_name])
+                trainer.model.delete_adapter(task_adapter_name)
+                trainer.model.delete_adapter(lang_adapter_name)
+                trainer.model.delete_adapter(group_adapter_name)
+                trainer.model.delete_adapter(family_adapter_name)
 
 
 
