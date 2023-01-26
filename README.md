@@ -154,3 +154,41 @@ python scripts/run_glue.py \
 ```
 deactivate
 ```
+
+## get final predictions
+
+Important here is to set `--is_final_test` to `true` and provide the test file with `index\ttweet` format.
+
+```
+source vnv/vnv-adp-l/bin/activate
+```
+
+```
+export TASK_NAME=afri
+python scripts/run_glue.py \
+  --model_name_or_path  bert-base-multilingual-uncased \
+  --family_path tmp/mlm\
+  --task_path tmp/$TASK_NAME/$TASK_NAME\
+  --task_name $TASK_NAME \
+  --is_final_test true \
+  --train_file data/SubtaskA/processed/train/ts_train.tsv \
+  --validation_file data/SubtaskA/processed/dev/ts_dev.tsv \
+  --test_file data_with_gold_lables/task_A/processed/test/am_test_participants.tsv \
+  --lang_config meta_files/lang_meta.json \
+  --lang_family afrisenti \
+  --lang_name ts\
+  --do_predict \
+  --is_joint true \
+  --learning_rate 2e-5 \
+  --num_train_epochs 3 \
+  --output_dir tmp/mlm/result \
+  --cache_dir /scratch/ffaisal/hug_cache/mlm \
+  --adapter_config "pfeiffer+inv" \
+  --max_seq_length 128 \
+  --max_steps 10 \
+  --save_steps 5000 \
+  --per_device_train_batch_size 12
+```
+```
+deactivate
+```

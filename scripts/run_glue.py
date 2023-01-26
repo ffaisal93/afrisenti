@@ -147,6 +147,10 @@ class DataTrainingArguments:
         default=None, metadata={"help": "A csv or a json file containing the validation data."}
     )
     test_file: Optional[str] = field(default=None, metadata={"help": "A csv or a json file containing the test data."})
+    is_final_test: bool = field(
+        default=False,
+        metadata={"help": "Is the final test file is given or not."},
+    )
 
     def __post_init__(self):
         if self.task_name is not None:
@@ -362,6 +366,8 @@ def main():
 
         if data_args.train_file.endswith(".csv") or data_args.train_file.endswith(".tsv"):
             # Loading a dataset from local csv files
+            if data_args.is_final_test==True:
+                data_files = {"train": data_args.train_file, "validation": data_args.validation_file}
             raw_datasets = load_dataset(
                 "csv",
                 data_files=data_files,
@@ -576,9 +582,29 @@ def main():
             eval_dataset = eval_dataset.select(range(max_eval_samples))
 
     if training_args.do_predict or data_args.task_name is not None or data_args.test_file is not None:
-        if "test" not in raw_datasets and "test_matched" not in raw_datasets:
+        if "test" not in raw_datasets and "test_matched" not in raw_datasets and data_args.is_final_test==False:
             raise ValueError("--do_predict requires a test dataset")
-        predict_dataset = raw_datasets["test_matched" if data_args.task_name == "mnli" else "test"]
+        elif data_args.is_final_test==True:
+            predict_dataset = load_dataset(
+                "csv",
+                data_files={"test":data_args.test_file},
+                cache_dir=model_args.cache_dir,
+                delimiter='\t',
+                use_auth_token=True if model_args.use_auth_token else None,
+            )
+            predict_dataset=predict_dataset.map(
+            preprocess_function,
+            batched=True,
+            load_from_cache_file=not data_args.overwrite_cache,
+            desc="Running tokenizer on dataset",
+        )
+            predict_dataset=predict_dataset["test"]
+            # if 'id' in predict_dataset.features:
+            #     predict_dataset = predict_dataset.remove_columns("id")
+            print(predict_dataset)
+        else:
+            predict_dataset = raw_datasets["test_matched" if data_args.task_name == "mnli" else "test"]
+        print(predict_dataset)
         if data_args.max_predict_samples is not None:
             max_predict_samples = min(len(predict_dataset), data_args.max_predict_samples)
             predict_dataset = predict_dataset.select(range(max_predict_samples))
@@ -741,14 +767,24 @@ def main():
                     with open(output_predict_file, "w") as writer:
                         logger.info(f"***** Predict results {task} *****")
                         writer.write("index\tprediction\n")
-                        for index, item in enumerate(predictions):
-                            if is_regression:
-                                writer.write(f"{index}\t{item:3.3f}\n")
-                            else:
-                                item = label_list[item]
-                                writer.write(f"{index}\t{item}\n")
-                trainer.log_metrics("predict", metrics)
-                trainer.save_metrics("predict", metrics)
+                        if data_args.is_final_test==True:
+                            for index, item in enumerate(predictions):
+                                if is_regression:
+                                    writer_pred.write(f"{predict_dataset['id'][index]}\t{item:3.3f}\n")
+                                else:
+                                    item = label_list[item]
+                                    writer_pred.write(f"{predict_dataset['id'][index]}\t{item}\n")
+                        else:
+                            for index, item in enumerate(predictions):
+                                if is_regression:
+                                    writer_pred.write(f"{index}\t{item:3.3f}\n")
+                                else:
+                                    item = label_list[item]
+                                    writer_pred.write(f"{index}\t{item}\n")
+
+                if data_args.is_final_test==False:
+                    trainer.log_metrics("predict", metrics)
+                    trainer.save_metrics("predict", metrics)
 
 
         def  do_prediction_joint(text,adapter_list):
@@ -758,30 +794,42 @@ def main():
             # else:
             #     model.set_active_adapters(ac.Stack(adapter_list))
             trainer.model = trainer.model.to(training_args.device)
-            print(trainer.model)
+            # print(trainer.model)
             predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
+            print(predictions)
+            print(labels)
+            print(metrics)
             predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
 
-            predict_file = os.path.join(training_args.output_dir, f"predict_results_{lang}.txt")
+            predict_file = os.path.join(training_args.output_dir, f"predict_results_{lang}_{text}.txt")
             if trainer.is_world_process_zero():
                 with open(predict_file, "w") as writer_pred:
                     logger.info(f"***** Predict results {lang} *****")
                     writer_pred.write("index\tprediction\n")
-                    for index, item in enumerate(predictions):
-                        if is_regression:
-                            writer_pred.write(f"{index}\t{item:3.3f}\n")
-                        else:
-                            item = label_list[item]
-                            writer_pred.write(f"{index}\t{item}\n")
+                    if data_args.is_final_test==True:
+                        for index, item in enumerate(predictions):
+                            if is_regression:
+                                writer_pred.write(f"{predict_dataset['id'][index]}\t{item:3.3f}\n")
+                            else:
+                                item = label_list[item]
+                                writer_pred.write(f"{predict_dataset['id'][index]}\t{item}\n")
+                    else:
+                        for index, item in enumerate(predictions):
+                            if is_regression:
+                                writer_pred.write(f"{index}\t{item:3.3f}\n")
+                            else:
+                                item = label_list[item]
+                                writer_pred.write(f"{index}\t{item}\n")
 
-            logger.info("%s,%s,%s,%s,%s\n" % (text,adapter_list[-1], 
-                lang, 
-                metrics['predict_accuracy'], 
-                metrics['predict_f1']))
-            writer.write("%s,%s,%s,%s,%s\n" % (text,adapter_list[-1],
-                lang, 
-                metrics['predict_accuracy'], 
-                metrics['predict_f1']))
+            if data_args.is_final_test==False:
+                logger.info("%s,%s,%s,%s,%s\n" % (text,adapter_list[-1], 
+                    lang, 
+                    metrics['predict_accuracy'], 
+                    metrics['predict_f1']))
+                writer.write("%s,%s,%s,%s,%s\n" % (text,adapter_list[-1],
+                    lang, 
+                    metrics['predict_accuracy'], 
+                    metrics['predict_f1']))
             trainer.model.set_active_adapters(None)
 
         # if adapter_args.train_adapter:
