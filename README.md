@@ -192,3 +192,6 @@ python scripts/run_glue.py \
 ```
 deactivate
 ```
+
+#### info
+- set `--is_adapter`  to `true` to evaluate on a single trained task adapter loaded from `output_dir`

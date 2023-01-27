@@ -753,20 +753,19 @@ def main():
                 tasks.append("mnli-mm")
                 predict_datasets.append(raw_datasets["test_mismatched"])
 
+
             for predict_dataset, task in zip(predict_datasets, tasks):
                 # Removing the `label` columns because it contains -1 and Trainer won't like that.
                 # predict_dataset = predict_dataset.remove_columns("label")
                 print(predict_dataset[0])
-                p =trainer.predict(predict_dataset, metric_key_prefix="predict")
-                print(p)
                 predictions, labels, metrics = trainer.predict(predict_dataset, metric_key_prefix="predict")
                 predictions = np.squeeze(predictions) if is_regression else np.argmax(predictions, axis=1)
 
                 output_predict_file = os.path.join(training_args.output_dir, f"predict_results_{task}.txt")
                 if trainer.is_world_process_zero():
-                    with open(output_predict_file, "w") as writer:
+                    with open(output_predict_file, "w") as writer_pred:
                         logger.info(f"***** Predict results {task} *****")
-                        writer.write("index\tprediction\n")
+                        writer_pred.write("index\tprediction\n")
                         if data_args.is_final_test==True:
                             for index, item in enumerate(predictions):
                                 if is_regression:
@@ -834,86 +833,88 @@ def main():
 
         # if adapter_args.train_adapter:
         task_name=data_args.task_name
-        if training_args.do_train==False:
-            if model_args.is_adapter:
-                if language:
-                    lang_adapter_config = AdapterConfig.load(
-                        config="pfeiffer", non_linearity="gelu", reduction_factor=2
-                    )
-                    model.load_adapter(
-                        os.path.join(training_args.output_dir, "best_model", language)
-                        if training_args.do_train
-                        else adapter_args.load_lang_adapter,
-                        config=lang_adapter_config,
-                        load_as=language,
-                    )
-                task_adapter_config = AdapterConfig.load(
-                    config="pfeiffer", non_linearity="gelu", reduction_factor=16
+        if training_args.do_train==True:
+            model_path=os.path.join(training_args.output_dir,task_name)
+        if model_args.is_adapter:
+            if language:
+                lang_adapter_config = AdapterConfig.load(
+                    config="pfeiffer", non_linearity="gelu", reduction_factor=2
                 )
                 model.load_adapter(
-                    os.path.join(training_args.output_dir,task_name),
-                    config=task_adapter_config,
-                    load_as=task_name
+                    os.path.join(training_args.output_dir, "best_model", language)
+                    if training_args.do_train
+                    else adapter_args.load_lang_adapter,
+                    config=lang_adapter_config,
+                    load_as=language,
                 )
-                if language:
-                    model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
-                else:
-                    model.set_active_adapters(task_name)
-                trainer.model = model.to(training_args.device)
-                do_prediction(predict_dataset)
-
-            elif model_args.is_joint:
-                import json
-                leave_out = []
-                lang=model_args.lang_name
-                with open(model_args.lang_config) as json_file:
-                    ad_data = json.load(json_file)
-                group_name = ad_data[model_args.lang_family][model_args.lang_name]
-                print(model_args.family_path)
-
-                task_j_path = model_args.task_path
-                logger.info('task_path:{}'.format(task_j_path))
-                task_adapter_name=load_tadapters(task_j_path, 'task_j')
-
-                lang_j_path = os.path.join(model_args.family_path,model_args.lang_name)
-                logger.info('lang_path:{}'.format(lang_j_path))
-                lang_adapter_name=load_ladapters(lang_j_path, 'lang_j')
-
-                group_j_path = os.path.join(model_args.family_path,group_name)
-                logger.info('group_path:{}'.format(group_j_path))
-                group_adapter_name=load_ladapters(group_j_path, 'group_j')
-
-                family_j_path = os.path.join(model_args.family_path,'family')
-                logger.info('family_path:{}'.format(family_j_path))
-                family_adapter_name=load_ladapters(family_j_path, 'family_j')
-
-
-                output_test_results_file = os.path.join(training_args.output_dir, "joint_test_results.txt")
-                if trainer.is_world_process_zero():
-                    writer = open(output_test_results_file, "w")
-
-                do_prediction_joint('[task]',[task_adapter_name])
-                do_prediction_joint('[task+lang->joint]',[lang_adapter_name, task_adapter_name])
-                do_prediction_joint('[task+lang+family->joint]',[family_adapter_name,lang_adapter_name, task_adapter_name])
-                do_prediction_joint('[task+lang+region+family->joint]',[family_adapter_name,group_adapter_name,
-                                               lang_adapter_name, task_adapter_name])
-                trainer.model.delete_adapter(task_adapter_name)
-                trainer.model.delete_adapter(lang_adapter_name)
-                trainer.model.delete_adapter(group_adapter_name)
-                trainer.model.delete_adapter(family_adapter_name)
-
-
-
+            task_adapter_config = AdapterConfig.load(
+                config="pfeiffer", non_linearity="gelu", reduction_factor=16
+            )
+            model.load_adapter(
+                os.path.join(training_args.output_dir,task_name),
+                config=task_adapter_config,
+                load_as=task_name
+            )
+            if language:
+                model.set_active_adapters(ac.Stack(lang_adapter_name, task_name))
             else:
-                model = AutoModelForSequenceClassification.from_pretrained(
-                    os.path.join(training_args.output_dir),
-                    from_tf=bool(".ckpt" in model_args.model_name_or_path),
-                    config=config,
-                    cache_dir=model_args.cache_dir,
-                )
-                trainer.model = model.to(training_args.device)
-                print(predict_dataset)
-                do_prediction(predict_dataset)
+                model.set_active_adapters(task_name)
+            trainer.model = model.to(training_args.device)
+            do_prediction(predict_dataset)
+
+        elif model_args.is_joint:
+            import json
+            leave_out = []
+            lang=model_args.lang_name
+            with open(model_args.lang_config) as json_file:
+                ad_data = json.load(json_file)
+            group_name = ad_data[model_args.lang_family][model_args.lang_name]
+            print(model_args.family_path)
+
+            task_j_path = model_args.task_path
+            logger.info('task_path:{}'.format(task_j_path))
+            task_adapter_name=load_tadapters(task_j_path, 'task_j')
+
+            lang_j_path = os.path.join(model_args.family_path,model_args.lang_name)
+            logger.info('lang_path:{}'.format(lang_j_path))
+            lang_adapter_name=load_ladapters(lang_j_path, 'lang_j')
+
+            group_j_path = os.path.join(model_args.family_path,group_name)
+            logger.info('group_path:{}'.format(group_j_path))
+            group_adapter_name=load_ladapters(group_j_path, 'group_j')
+
+            family_j_path = os.path.join(model_args.family_path,'family')
+            logger.info('family_path:{}'.format(family_j_path))
+            family_adapter_name=load_ladapters(family_j_path, 'family_j')
+
+
+            output_test_results_file = os.path.join(training_args.output_dir, "joint_test_results.txt")
+            if trainer.is_world_process_zero():
+                writer = open(output_test_results_file, "w")
+
+            do_prediction_joint('[task]',[task_adapter_name])
+            do_prediction_joint('[task+lang->joint]',[lang_adapter_name, task_adapter_name])
+            do_prediction_joint('[task+lang+family->joint]',[family_adapter_name,lang_adapter_name, task_adapter_name])
+            do_prediction_joint('[task+lang+region+family->joint]',[family_adapter_name,group_adapter_name,
+                                           lang_adapter_name, task_adapter_name])
+            trainer.model.delete_adapter(task_adapter_name)
+            trainer.model.delete_adapter(lang_adapter_name)
+            trainer.model.delete_adapter(group_adapter_name)
+            trainer.model.delete_adapter(family_adapter_name)
+
+
+
+        else:
+            model = AutoModelForSequenceClassification.from_pretrained(
+                os.path.join(training_args.output_dir) if training_args.do_train
+                else os.path.join(training_args.model_name_or_path),
+                from_tf=bool(".ckpt" in model_args.model_name_or_path),
+                config=config,
+                cache_dir=model_args.cache_dir,
+            )
+            trainer.model = model.to(training_args.device)
+            print(predict_dataset,"------")
+            do_prediction(predict_dataset)
             # model.to(training_args.device)
 
 
