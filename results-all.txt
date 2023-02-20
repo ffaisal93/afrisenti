@@ -1,0 +1,668 @@
+Track 1: Hausa (ha)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 82.62 %
+2 UM6P Mohammed VI Polytechnic University Abdelkader 82.04 %
+3 ABCD Team University of Information Technology thindang 81.50 %
+4 king001 PingAnLifeInsurance king001 81.11 %
+5 PALI N/A PALI 81.10 %
+6 DN N/A UsrD7 81.09 %
+7 stce N/A stce 80.99 %
+8 HausaNLP HausaNLP HausaNLP 80.97 %
+9 Seals_Lab Auburn University Nilanjana 80.85 %
+10 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 80.79 %
+11 TBS N/A TBS 80.67 %
+12 uid N/A uid 80.45 %
+13 TechSSN N/A Nishaanth 80.32 %
+14 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 79.74 %
+15 Witcherses IIIT Hyderabad mg1800 79.65 %
+16 jacklight971 N/A jacklight971 79.57 %
+17 GMNLP George Mason University rxie 79.56 %
+18 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 79.37 %
+19 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 78.75 %
+20 Sefamerve Sefamerve R&D Center selmandelil 78.59 %
+21 JCT Jerusalem College of Technology ronke21 78.50 %
+22 Howard University Computer Science Howard University howard888 77.68 %
+23 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 77.17 %
+24 Trinity Pune Institute Of Computer Technology Harshwardhan 76.53 %
+25 ymf924 The Ohio State University ymf924 75.88 %
+26 efrat4050 N/A efrat4050 75.65 %
+27 UIO University of Oslo egilron 74.53 %
+28 UMUTeam Universidad de Murcia JoseAGD 73.92 %
+29 JacobLevy248 N/A JacobLevy248 73.38 %
+30 FUOYENLP Federal University Oye-Ekiti dlaw 73.17 %
+31 Masakhane-Afrisenti Masakhane iazime 73.12 %
+32 tmn University of Tyumen, Russia utmn 72.93 %
+33 ronaharo N/A ronaharo 72.84 %
+34 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 72.56 %
+35 MaChAmp N/A robvanderg 17.02 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 2: Yoruba (yo)
+Rank Team Affiliation Username F1
+1 king001 PingAnLifeInsurance king001 80.16 %
+2 stce N/A stce 80.08 %
+3 PALI N/A PALI 80.06 %
+4 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 79.95 %
+5 Bhattacharya_Lab Auburn university at Montgomery Sutanu 79.86 %
+6 ABCD Team University of Information Technology thindang 79.73%
+7 Witcherses IIIT Hyderabad mg1800 78.44%
+8 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 77.25 %
+9 UCAS-IIE-NLP Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 77.13 %
+10 uid N/A uid 76.98 %
+11 TBS N/A TBS 76.57 %
+12 UM6P Mohammed VI Polytechnic University Abdelkader 76.01 %
+13 ymf924 The Ohio State University ymf924 75.94%
+14 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 75.42 %
+15 tmn University of Tyumen, Russia utmn 75.08 %
+16 Howard University Computer Science Howard University howard888 74.72 %
+17 efrat4050 N/A efrat4050 72.76%
+18 DN N/A UsrD7 72.07 %
+19 HausaNLP HausaNLP HausaNLP 71.88 %
+20 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 71.02 %
+21 GMNLP George Mason University rxie 70.84 %
+22 JCT Jerusalem College of Technology ronke21 69.98 %
+23 Masakhane-Afrisenti Masakhane iazime 68.98 %
+24 FITBUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 67.93%
+25 UIO University of Oslo egilron 66.99%
+26 UMUTeam Universidad de Murcia JoseAGD 66.10 %
+27 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 65.65 %
+28 JacobLevy248 N/A JacobLevy248 64.83 %
+29 FUOYENLP Federal University Oye-Ekiti dlaw 64.31 %
+30 jacklight971 N/A jacklight971 63.96 %
+31 Trinity Pune Institute Of Computer Technology Harshwardhan 50.00 %
+32 Sefamerve Sefamerve R&D Center selmandelil 25.33%
+33 MaChAmp N/A robvanderg 18.87 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 3: Igbo (ig)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 82.96 %
+2 ABCD Team University of Information Technology thindang 82.28 %
+3 UM6P Mohammed VI Polytechnic University Abdelkader 81.51 %
+4 king001 PingAnLifeInsurance king001 81.39 %
+5 stce N/A stce 81.37 %
+6 PALI N/A PALI 81.30%
+7 Witcherses IIIT Hyderabad mg1800 80.87 %
+8 Seals_Lab Auburn University Nilanjana 80.82 %
+9 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 80.29 %
+10 NLP-LISAC N/A abdessamad_binlahbib 79.66 %
+11 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 78.99 %
+12 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 78.51 %
+12 uid N/A uid 78.51 %
+13 TBS N/A TBS 78.47 %
+14 JacobLevy248 N/A JacobLevy248 78.14 %
+15 Howard University Computer Science Howard University howard888 78.02 %
+16 UIO University of Oslo egilron 77.58 %
+17 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 77.52 %
+18 JCT Jerusalem College of Technology ronke21 77.08 %
+19 HausaNLP HausaNLP alkhudry28 76.96 %
+20 UMUTeam Universidad de Murcia JoseAGD 76.78 %
+21 efrat4050 N/A efrat4050 76.28 %
+22 jacklight971 N/A jacklight971 75.79 %
+23 FITBUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 75.64 %
+24 GMNLP George Mason University rxie 75.34 %
+25 DN N/A UsrD7 74.51 %
+26 Masakhane-Afrisenti Masakhane iazime 73.75 %
+27 Sefamerve Sefamerve R&D Center selmandelil 73.24 %
+28 ronaharo N/A ronaharo 73.21 %
+29 tmn University of Tyumen, Russia utmn 72.66 %
+30 ymf924 The Ohio State University ymf924 72.49 %
+31 FUOYENLP Federal University Oye-Ekiti dlaw 72.22 %
+32 MaChAmp N/A robvanderg 26.91 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 4: Nigerian Pidgin (pcm)
+Rank Team Affiliation Username F1
+1 Bhattacharya_Lab Auburn university at Montgomery Sutanu 75.96 %
+2 king001 PingAnLifeInsurance king001 75.75 %
+3 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 75.53 %
+4 stce N/A stce 75.30 %
+5 PALI N/A PALI 75.16 %
+6 ymf924 The Ohio State University ymf924 72.48 %
+7 BCAI Bosch Center for Artificial Intelligence MY26W 71.94 %
+8 tmn University of Tyumen, Russia utmn 69.63 %
+9 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 69.17 %
+10 UM6P Mohammed VI Polytechnic University Abdelkader 69.14 %
+11 GMNLP George Mason University rxie 68.84 %
+12 HausaNLP HausaNLP HausaNLP 68.48 %
+13 FUOYENLP Federal University Oye-Ekiti dlaw 68.01 %
+14 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 68.00 %
+15 UIO University of Oslo egilron 67.08 %
+16 Masakhane-Afrisenti Masakhane iazime 66.88 %
+17 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 66.63 %
+18 ABCD Team University of Information Technology thindang 66.30 %
+19 Howard University Computer Science Howard University howard888 66.12 %
+20 DuluthNLP University of Minnesota, Duluth Sakrah 65.85 %
+21 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 65.57 %
+22 UMUTeam Universidad de Murcia JoseAGD 65.55 %
+23 FITBUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 65.00 %
+24 DN N/A UsrD7 64.89 %
+25 akn Uppsala University akniele 64.69 %
+26 Witcherses IIIT Hyderabad mg1800 64.44 %
+27 Sefamerve Sefamerve R&D Center selmandelil 63.67 %
+28 JCT Jerusalem College of Technology ronke21 62.52 %
+28 ronaharo N/A ronaharo 62.52 %
+29 jacklight971 N/A jacklight971 62.17 %
+30 JacobLevy248 N/A JacobLevy248 57.47 %
+31 efrat4050 N/A efrat4050 53.17 %
+32 MaChAmp N/A robvanderg 40.20 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 5: Amharic (am)
+Rank Team Affiliation Username F1
+1 GMNLP George Mason University rxie 78.42 %
+2 UM6P Mohammed VI Polytechnic University Abdelkader 72.18 %
+3 Sefamerve Sefamerve R&D Center selmandelil 70.18 %
+4 ymf924 The Ohio State University ymf924 69.83 %
+5 king001 PingAnLifeInsurance king001 69.77 %
+6 Masakhane-Afrisenti Masakhane iazime 68.85 %
+7 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 67.45 %
+8 PALI N/A PALI 65.56 %
+8 stce N/A stce 65.56 %
+9 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 65.10 %
+10 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 64.71 %
+11 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 64.52 %
+12 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 64.04 %
+13 tmn University of Tyumen, Russia utmn 63.11 %
+14 Howard University Computer Science Howard University howard888 61.68 %
+15 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 60.83 %
+16 ABCD Team University of Information Technology thindang 58.05 %
+17 DN N/A UsrD7 57.34 %
+18 HausaNLP HausaNLP HausaNLP 57.3 %
+19 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 56.88 %
+20 UIO University of Oslo egilron 56.86 %
+21 UMUTeam Universidad de Murcia JoseAGD 55.39 %
+22 Seals_Lab Auburn University Nilanjana 54.67 %
+23 FUOYENLP Federal University Oye-Ekiti dlaw 54.25 %
+24 jacklight971 N/A jacklight971 53.76 %
+24 JCT Jerusalem College of Technology ronke21 53.76 %
+25 Witcherses IIIT Hyderabad mg1800 39.09 %
+26 efrat4050 N/A efrat4050 31.99 %
+27 JacobLevy248 N/A JacobLevy248 21.55 %
+28 ronaharo N/A ronaharo 14.98 %
+29 MaChAmp N/A robvanderg 2.26 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 6: Algerian Arabic (dz)
+Rank Team Affiliation Username F1
+1 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 74.20 %
+2 king001 PingAnLifeInsurance king001 73.00 %
+3 PALI N/A PALI 72.62 %
+4 UM6P Mohammed VI Polytechnic University Abdelkader 72.02 %
+5 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 72.01 %
+6 Sefamerve Sefamerve R&D Center selmandelil 71.74 %
+7 stce N/A stce 71.72 %
+8 tmn University of Tyumen, Russia utmn 70.54 %
+9 foul N/A foul 70.36 %
+10 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 69.99 %
+11 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 69.64 %
+12 UIO University of Oslo egilron 69.21 %
+13 UMUTeam Universidad de Murcia JoseAGD 68.52 %
+14 FUOYENLP Federal University Oye-Ekiti dlaw 68.14 %
+15 GMNLP George Mason University rxie 67.99 %
+16 ymf924 The Ohio State University ymf924 67.83 %
+17 DN N/A UsrD7 65.81 %
+18 HausaNLP HausaNLP HausaNLP 65.12 %
+19 Masakhane-Afrisenti Masakhane iazime 64.35 %
+20 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 64.02 %
+21 ABCD Team University of Information Technology thindang 63.50 %
+22 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 63.31 %
+23 Howard University Computer Science Howard University howard888 62.49 %
+24 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 62.15 %
+25 Witcherses IIIT Hyderabad mg1800 57.55 %
+26 efrat4050 N/A efrat4050 55.40 %
+27 JacobLevy248 N/A JacobLevy248 54.71 %
+28 HausaNLP HausaNLP HausaNLP 54.66 %
+29 MaChAmp N/A robvanderg 32.87 %
+30 JCT Jerusalem College of Technology ronke21 24.59 %
+30 jacklight971 N/A jacklight971 24.59 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 7: Morrocan Darija (ma)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 64.83 %
+2 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 63.54 %
+3 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 62.11 %
+4 ABCD Team University of Information Technology thindang 61.54 %
+5 NLP-LTU N/A Sana 60.27 %
+6 UM6P Mohammed VI Polytechnic University Abdelkader 60.15 %
+7 HausaNLP HausaNLP HausaNLP 58.49 %
+8 king001 PingAnLifeInsurance king001 57.94 %
+9 UIO University of Oslo egilron 57.46 %
+10 tmn University of Tyumen, Russia utmn 57.22 %
+11 DN N/A UsrD7 57.20 %
+12 ymf924 The Ohio State University ymf924 57.12 %
+13 PALI N/A PALI 55.92 %
+14 Masakhane-Afrisenti Masakhane iazime 55.50 %
+15 stce N/A stce 55.42 %
+16 UCAS-IIE-NLP Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 55.36 %
+17 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 55.34 %
+18 uid N/A uid 55.29 %
+18 TBS N/A TBS 55.29 %
+19 GMNLP George Mason University rxie 55.23 %
+20 UMUTeam Universidad de Murcia JoseAGD 54.75 %
+21 efrat4050 N/A efrat4050 54.43 %
+22 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 53.06 %
+23 FUOYENLP Federal University Oye-Ekiti dlaw 52.78 %
+24 Sefamerve Sefamerve R&D Center selmandelil 52.54 %
+25 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 52.08 %
+26 aptxaaaa N/A aptxaaaa 51.01 %
+27 Witcherses IIIT Hyderabad mg1800 50.68 %
+28 Howard University Computer Science Howard University howard888 47.34 %
+29 JacobLevy248 N/A JacobLevy248 46.32 %
+30 jacklight971 N/A jacklight971 43.95 %
+30 JCT Jerusalem College of Technology ronke21 43.95 %
+31 ronaharo N/A ronaharo 39.72 %
+32 MaChAmp N/A robvanderg 12.79 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 08: Swahili (sw)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 65.68 %
+2 king001 PingAnLifeInsurance king001 64.89 %
+3 PALI N/A PALI 64.37 %
+3 stce N/A stce 64.37 %
+4 ymf924 The Ohio State University ymf924 64.23 %
+5 Sefamerve Sefamerve R&D Center selmandelil 63.94 %
+6 GMNLP George Mason University rxie 63.70 %
+7 HausaNLP HausaNLP alkhudry28 63.23 %
+8 ABCD Team University of Information Technology thindang 63.1 %
+9 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 63.01 %
+10 DN N/A UsrD7 62.51 %
+11 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 61.73 %
+12 tmn University of Tyumen, Russia utmn 61.66 %
+13 UCAS-IIE-NLP Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 60.73 %
+14 UMUTeam Universidad de Murcia JoseAGD 60.52 %
+15 UM6P Mohammed VI Polytechnic University Abdelkader 60.26 %
+16 Masakhane-Afrisenti Masakhane iazime 60.24 %
+17 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 59.69 %
+18 jacklight971 N/A jacklight971 58.98 %
+18 JCT Jerusalem College of Technology ronke21 58.98 %
+19 Witcherses IIIT Hyderabad mg1800 58.91 %
+20 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 58.60 %
+21 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 57.90 %
+22 UIO University of Oslo egilron 56.69 %
+23 JacobLevy248 N/A JacobLevy248 55.97 %
+24 FUOYENLP Federal University Oye-Ekiti dlaw 54.31 %
+25 ronaharo N/A ronaharo 53.35 %
+26 Howard University Computer Science Howard University howard888 52.31 %
+27 Seals_Lab Auburn University Nilanjana 52.18 %
+28 efrat4050 N/A efrat4050 51.76 %
+29 Trinity Pune Institute Of Computer Technology Harshwardhan 47.55 %
+30 MaChAmp N/A robvanderg 44.22 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 9: Kinyarwanda (kr)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 72.63 %
+2 KINLP University of Massachusetts Amherst,
+anzeyimana
+anzeyimana 72.50 %
+3 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 72.48 %
+4 DN N/A UsrD7 71.91 %
+5 GMNLP George Mason University rxie 71.80 %
+6 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 71.47 %
+7 afrisent23kb N/A afrisent23kb 71 %
+8 uid N/A uid 70.99 %
+9 TBS N/A TBS 70.98 %
+10 ymf924 The Ohio State University ymf924 70.88 %
+11 UM6P Mohammed VI Polytechnic University Abdelkader 70.71 %
+12 HausaNLP HausaNLP HausaNLP 70.61 %
+13 tmn University of Tyumen, Russia utmn 69.82 %
+14 PALI N/A PALI 69.61 %
+14 stce N/A stce 69.61 %
+15 ABCD Team University of Information Technology thindang 67.36 %
+16 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 67.25 %
+17 Howard University Computer Science Howard University howard888 66.50 %
+18 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 65.59 %
+19 UMUTeam Universidad de Murcia JoseAGD 65.03 %
+20 Masakhane-Afrisenti Masakhane iazime 64.14 %
+21 Sefamerve Sefamerve R&D Center selmandelil 63.15 %
+22 Witcherses IIIT Hyderabad mg1800 62.69 %
+23 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 62.02 %
+24 UIO University of Oslo egilron 61.66 %
+25 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 61.16 %
+26 king001 PingAnLifeInsurance king001 60.26 %
+27 efrat4050 N/A efrat4050 59.56 %
+28 JCT Jerusalem College of Technology ronke21 58.22 %
+29 JacobLevy248 N/A JacobLevy248 57.92 %
+30 ronaharo N/A ronaharo 57.87 %
+31 FUOYENLP Federal University Oye-Ekiti dlaw 54.20 %
+32 jacklight971 N/A jacklight971 51.41 %
+33 Bhattacharya_Lab Auburn university at Montgomery Sutanu 47.10 %
+34 MaChAmp N/A robvanderg 17.79 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 10: Twi (twi)
+Rank Team Affiliation Username F1
+1 king001 PingAnLifeInsurance king001 68.28 %
+2 PALI N/A PALI 67.58 %
+2 stce stce stce 67.58 %
+3 BCAI Bosch Center for Artificial Intelligence MY26W 67.51 %
+4 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 67.39 %
+5 tmn University of Tyumen, Russia utmn 67.06 %
+6 UM6P Mohammed VI Polytechnic University Abdelkader 66.98 %
+7 Witcherses IIIT Hyderabad mg1800 66.47 %
+8 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 66.38 %
+9 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 65.98 %
+10 Sefamerve Sefamerve R&D Center selmandelil 65.66 %
+11 ABCD Team University of Information Technology thindang 65.61 %
+12 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 65.14 %
+13 UIO University of Oslo egilron 65.02 %
+14 DuluthNLP University of Minnesota, Duluth sakrah 64.29 %
+15 efrat4050 N/A efrat4050 64.18 %
+16 HausaNLP HausaNLP HausaNLP 64.07 %
+17 JacobLevy248 N/A JacobLevy248 64.06 %
+18 FITBUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 63.41 %
+19 UMUTeam Universidad de Murcia JoseAGD 63.01 %
+20 Howard University Computer Science Howard University howard888 62.84 %
+21 Masakhane-Afrisenti Masakhane iazime 62.83 %
+22 ymf924 The Ohio State University ymf924 62.56 %
+23 JCT Jerusalem College of Technology ronke21 61.82 %
+24 jacklight971 N/A jacklight971 60.37 %
+25 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 60.15 %
+26 uid N/A uid 59.63 %
+27 FUOYENLP Federal University Oye-Ekiti dlaw 57.94 %
+28 GMNLP George Mason University rxie 56.46 %
+29 DN N/A UsrD7 55.53 %
+30 TBS N/A TBS 55.11 %
+31 MaChAmp N/A robvanderg 20.17 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 11: Mozambican Portuguese (pt)
+Rank Team Affiliation Username F1
+1 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 74.98 %
+2 PALI N/A PALI 73.83 %
+3 ymf924 The Ohio State University ymf924 73.80 %
+4 stce N/A stce 73.57 %
+5 king001 PingAnLifeInsurance king001 73.53 %
+6 tmn University of Tyumen, Russia utmn 73.09 %
+7 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 72.90 %
+8 FUOYENLP Federal University Oye-Ekiti dlaw 72.88 %
+9 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 72.28 %
+10 GMNLP George Mason University rxie 71.90 %
+11 UIO University of Oslo egilron 71.64 %
+12 UMUTeam Universidad de Murcia JoseAGD 71.14 %
+13 Masakhane-Afrisenti Masakhane iazime 70.26 %
+14 DN N/A UsrD7 69.09 %
+15 HausaNLP HausaNLP HausaNLP 68.37 %
+16 Sefamerve Sefamerve R&D Center selmandelil 67.94 %
+17 Howard University Computer Science Howard University howard888 67.72 %
+18 UM6P Mohammed VI Polytechnic University Abdelkader 67.35 %
+19 ABCD Team University of Information Technology thindang 67.21 %
+20 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 65.90 %
+21 UCAS Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 65.13 %
+22 Witcherses IIIT Hyderabad mg1800 65.03 %
+23 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 63.54 %
+24 JCT Jerusalem College of Technology ronke21 62.96 %
+25 efrat4050 N/A efrat4050 62.75 %
+26 JacobLevy248 N/A JacobLevy248 62.67 %
+27 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 61.98 %
+28 jacklight971 N/A jacklight971 55.65 %
+29 Seals_Lab Auburn University Nilanjana 52.43 %
+30 MaChAmp N/A robvanderg 51.17 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 12: Xitsonga (ts)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 60.67 %
+2 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 60.32 %
+3 UIO University of Oslo egilron 60.07 %
+4 king001 PingAnLifeInsurance king001 56.26 %
+4 stce N/A stce 56.26 %
+4 PALI N/A PALI 56.26 %
+5 UM6P Mohammed VI Polytechnic University Abdelkader 56.13 %
+6 ymf924 The Ohio State University ymf924 55.38 %
+7 UMUTeam Universidad de Murcia JoseAGD 54.89 %
+8 Masakhane-Afrisenti Masakhane iazime 54.33 %
+9 JCT Jerusalem College of Technology ronke21 54.10 %
+9 efrat4050 N/A efrat4050 54.10 %
+10 ABCD Team University of Information Technology thindang 53.92 %
+11 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 53.72 %
+12 tmn University of Tyumen, Russia utmn 53.66 %
+13 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 52.86 %
+14 Witcherses IIIT Hyderabad mg1800 52.82 %
+15 GMNLP George Mason University rxie 51.67 %
+16 FUOYENLP Federal University Oye-Ekiti dlaw 51.38 %
+17 JacobLevy248 N/A JacobLevy248 51.26 %
+18 UCAS-IIE-NLP Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 51.09 %
+19 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 50.46 %
+20 HausaNLP HausaNLP alkhudry28 50.27 %
+21 GunadarmaxBRIN Gundama University, Novita aquemos 50.11 %
+22 TBS N/A TBS 49.40 %
+23 aptxaaaa N/A aptxaaaa 48.97 %
+24 Howard University Computer Science Howard University howard888 48.80 %
+25 Sefamerve Sefamerve R&D Center selmandelil 48.27 %
+26 uid N/A uid 46.91 %
+27 DN N/A UsrD7 46.62 %
+28 UBC-DLNLP UBC - Deep Learning and Natural Language
+Processing Group
+gagan3012 45.49 %
+29 jacklight971 N/A jacklight971 42.74 %
+30 HausaNLP HausaNLP HausaNLP 41.36 %
+31 MaChAmp N/A robvanderg 26.01 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 16: Multilingual (mul)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 75.06 %
+2 king001 PingAnLifeInsurance king001 74.96 %
+3 DN N/A UsrD7 72.55 %
+4 ymf924 The Ohio State University ymf924 72.34 %
+5 mitchelldehaven Information Sciences Institute, University of
+Southern California
+mitchelldehaven 72.33 %
+6 UM6P Mohammed VI Polytechnic University Abdelkader 71.95 %
+7 GMNLP George Mason University rxie 71.24 %
+8 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 70.81 %
+9 Masakhane-Afrisenti Masakhane iazime 70.34 %
+10 UCAS-IIE-NLP Institute of Information Engineering, Chinese
+Academy of Sciences
+hudou 70.25 %
+11 tmn University of Tyumen, Russia utmn 70.05 %
+12 Witcherses IIIT Hyderabad mg1800 69.56 %
+13 HausaNLP HausaNLP HausaNLP 69.54 %
+14 ABCD Team University of Information Technology thindang 69.22 %
+15 iREL IIIT-H adityahari 68.23 %
+16 BERT 4EVER Guangdong University of Technology Neakail 67.46 %
+17 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar
+EL Mehraz (F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 67.30 %
+18 Howard University Computer Science Howard University howard888 66.60 %
+19 ISCL_WINTER Eberhard Karls Universität Tübingen Aligig 66.38 %
+20 UIO University of Oslo egilron 66.29 %
+21 FIT BUT Brno Technical University, Faculty of
+Information Technology
+maksim.aparovich 66.02 %
+22 FUOYENLP Federal University Oye-Ekiti dlaw 65.51 %
+23 UMUTeam Universidad de Murcia JoseAGD 65.47 %
+24 GunadarmaxBRIN Gunadarma University aquemos 65.23 %
+25 saroyehun University of Konstanz saroyehun 64.34 %
+26 JacobLevy248 N/A JacobLevy248 64.04 %
+27 efrat4050 N/A efrat4050 63.85 %
+28 Sefamerve Sefamerve R&D Center selmandelil 63.40 %
+29 DuluthNLP University of Minnesota, Duluth Sakrah 61.49 %
+30 jacklight971 N/A jacklight971 59.75 %
+31 JCT Jerusalem College of Technology ronke21 59.50 %
+32 Hercules N/A Oluwadunsin 59.35 %
+33 ronaharo N/A ronaharo 57.79 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 17: Zero-Shot Tigrinya (tg)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 70.86 %
+2 UCAS Institute of Information Engineering, Chinese Academy of
+Sciences
+hudou 70.47 %
+3 ymf924 The Ohio State University ymf924 70.39 %
+4 uid N/A uid 69.90 %
+5 TBS N/A TBS 69.61 %
+6 UM6P Mohammed VI Polytechnic University Abdelkader 69.53 %
+7 tmn University of Tyumen, Russia utmn 69.09 %
+8 DN N/A UsrD7 68.93 %
+9 mitchelldehaven Information Sciences Institute, University of Southern
+California
+mitchelldehaven 66.96 %
+10 PA2023 N/A yaguangren 62.27 %
+11 GMNLP George Mason University rxie 61.52 %
+12 NLP-LTU NLP-LTU Sana 61.48 %
+13 yg.ren N/A yg.ren 60.87 %
+14 ABCD Team University of Information Technology thindang 60.53 %
+15 BERT 4EVER Guangdong University of Technology Neakail 60.37 %
+16 hk001 N/A hk001 60.35 %
+17 abc1234 N/A abc1234 59.07 %
+18 Masakhane-Afrisenti Masakhane iazime 57.99 %
+19 UBC-DLNLP UBC - Deep Learning and Natural Language Processing Group gagan3012 57.03 %
+20 abc123 N/A abc123 55.49 %
+21 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar EL Mehraz
+(F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 52.64 %
+22 FIT BUT Brno Technical University, Faculty of Information Technology maksim.aparovich 52.42 %
+23 FUOYENLP Federal University Oye-Ekiti dlaw 47.18 %
+24 saroyehun University of Konstanz saroyehun 45.19 %
+25 MaChAmp N/A robvanderg 44.86 %
+26 abc1 N/A abc1 42.42 %
+27 Sefamerve Sefamerve R&D Center selmandelil 34.16 %
+28 abc12 N/A abc12 33.33 %
+29 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 29.49 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 18: Zero-Shot Oromo (or)
+Rank Team Affiliation Username F1
+1 mitchelldehaven Information Sciences Institute, University of Southern
+California
+mitchelldehaven 46.23 %
+2 UCAS Institute of Information Engineering, Chinese Academy of
+Sciences
+hudou 45.82 %
+3 ymf924 The Ohio State University ymf924 45.34 %
+4 UM6P Mohammed VI Polytechnic University Abdelkader 45.27 %
+5 TBS N/A TBS 45.12 %
+6 BCAI Bosch Center for Artificial Intelligence MY26W 44.97 %
+7 uid N/A uid 44.75 %
+8 ABCD Team University of Information Technology thindang 42.64 %
+9 BERT 4EVER Guangdong University of Technology Neakail 42.32 %
+10 Masakhane-Afrisenti Masakhane iazime 42.09 %
+11 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar EL Mehraz
+(F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 42.02 %
+12 tmn University of Tyumen, Russia utmn 41.97 %
+13 GMNLP George Mason University rxie 41.87 %
+14 UBC-DLNLP UBC - Deep Learning and Natural Language Processing Group gagan3012 41.79 %
+15 DN N/A UsrD7 41.45 %
+16 Bhattacharya_Lab Auburn university at Montgomery Sutanu 40.61 %
+16 Seals_Lab Auburn University Nilanjana 40.61 %
+17 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 39.86 %
+18 Sefamerve Sefamerve R&D Center selmandelil 39.35 %
+19 Team FITBUT Brno Technical University, Faculty of Information Technology maksim.aparovich 38.24 %
+20 MaChAmp N/A robvanderg 38.02 %
+21 saroyehun University of Konstanz saroyehun 37.79 %
+22 NLP-LTU NLP-LTU Sana 36.89 %
+23 FUOYENLP Federal University Oye-Ekiti dlaw 35.57 %
+24 Snarci N/A Snarci 33.98 %
+25 GunadarmaxBRIN Gunadarma University aquemos 32.05 %
+26 PA2023 N/A yaguangren 27.76 %
+27 HausaNLP HausaNLP HausaNLP 25.43 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.

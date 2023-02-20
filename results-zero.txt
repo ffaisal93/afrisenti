@@ -1,0 +1,75 @@
+Track 17: Zero-Shot Tigrinya (tg)
+Rank Team Affiliation Username F1
+1 BCAI-AIR3 Bosch Center for Artificial Intelligence MY26W 70.86 %
+2 UCAS Institute of Information Engineering, Chinese Academy of
+Sciences
+hudou 70.47 %
+3 ymf924 The Ohio State University ymf924 70.39 %
+4 uid N/A uid 69.90 %
+5 TBS N/A TBS 69.61 %
+6 UM6P Mohammed VI Polytechnic University Abdelkader 69.53 %
+7 tmn University of Tyumen, Russia utmn 69.09 %
+8 DN N/A UsrD7 68.93 %
+9 mitchelldehaven Information Sciences Institute, University of Southern
+California
+mitchelldehaven 66.96 %
+10 PA2023 N/A yaguangren 62.27 %
+11 GMNLP George Mason University rxie 61.52 %
+12 NLP-LTU NLP-LTU Sana 61.48 %
+13 yg.ren N/A yg.ren 60.87 %
+14 ABCD Team University of Information Technology thindang 60.53 %
+15 BERT 4EVER Guangdong University of Technology Neakail 60.37 %
+16 hk001 N/A hk001 60.35 %
+17 abc1234 N/A abc1234 59.07 %
+18 Masakhane-Afrisenti Masakhane iazime 57.99 %
+19 UBC-DLNLP UBC - Deep Learning and Natural Language Processing Group gagan3012 57.03 %
+20 abc123 N/A abc123 55.49 %
+21 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar EL Mehraz
+(F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 52.64 %
+22 FIT BUT Brno Technical University, Faculty of Information Technology maksim.aparovich 52.42 %
+23 FUOYENLP Federal University Oye-Ekiti dlaw 47.18 %
+24 saroyehun University of Konstanz saroyehun 45.19 %
+25 MaChAmp N/A robvanderg 44.86 %
+26 abc1 N/A abc1 42.42 %
+27 Sefamerve Sefamerve R&D Center selmandelil 34.16 %
+28 abc12 N/A abc12 33.33 %
+29 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 29.49 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
+Track 18: Zero-Shot Oromo (or)
+Rank Team Affiliation Username F1
+1 mitchelldehaven Information Sciences Institute, University of Southern
+California
+mitchelldehaven 46.23 %
+2 UCAS Institute of Information Engineering, Chinese Academy of
+Sciences
+hudou 45.82 %
+3 ymf924 The Ohio State University ymf924 45.34 %
+4 UM6P Mohammed VI Polytechnic University Abdelkader 45.27 %
+5 TBS N/A TBS 45.12 %
+6 BCAI Bosch Center for Artificial Intelligence MY26W 44.97 %
+7 uid N/A uid 44.75 %
+8 ABCD Team University of Information Technology thindang 42.64 %
+9 BERT 4EVER Guangdong University of Technology Neakail 42.32 %
+10 Masakhane-Afrisenti Masakhane iazime 42.09 %
+11 NLP-LISAC LISAC Laboratory, Faculty of Sciences Dhar EL Mehraz
+(F.S.D.M), Fez, Morocco
+abdessamad_benlahbib 42.02 %
+12 tmn University of Tyumen, Russia utmn 41.97 %
+13 GMNLP George Mason University rxie 41.87 %
+14 UBC-DLNLP UBC - Deep Learning and Natural Language Processing Group gagan3012 41.79 %
+15 DN N/A UsrD7 41.45 %
+16 Bhattacharya_Lab Auburn university at Montgomery Sutanu 40.61 %
+16 Seals_Lab Auburn University Nilanjana 40.61 %
+17 PA14 PA Sales Support Development Co., Ltd. yiyinianhua 39.86 %
+18 Sefamerve Sefamerve R&D Center selmandelil 39.35 %
+19 Team FITBUT Brno Technical University, Faculty of Information Technology maksim.aparovich 38.24 %
+20 MaChAmp N/A robvanderg 38.02 %
+21 saroyehun University of Konstanz saroyehun 37.79 %
+22 NLP-LTU NLP-LTU Sana 36.89 %
+23 FUOYENLP Federal University Oye-Ekiti dlaw 35.57 %
+24 Snarci N/A Snarci 33.98 %
+25 GunadarmaxBRIN Gunadarma University aquemos 32.05 %
+26 PA2023 N/A yaguangren 27.76 %
+27 HausaNLP HausaNLP HausaNLP 25.43 %
+⇤We used weighted F1 for the ranking. N/A means affiliation not available.
